@@ -27,23 +27,23 @@
                     </button>
                 </div>
 
-                <p class="relative mt-1.5 text-xs sm:text-sm text-white/90">
+                <p class="relative mt-1.5 text-xs sm:text-sm text-white">
                     Easy, fast & accurate billing
                 </p>
 
-                <div
-                    class="relative mt-4 rounded-xl text-white text-sm sm:text-base"
-                >
-                    <div class="flex flex-col space-y-1 text-left">
-                        <div class="font-medium">
-                            <span class="opacity-80">මාසය: </span>
-                            <span>{{ currentMonth }}</span>
-                        </div>
+                <div class="relative flex justify-between items-center mt-2">
+                    <div
+                        class="font-medium text-gray-800 min-w-[120px] sm:flex-1"
+                    >
+                        <span class="">මාසය:</span>
+                        <span>{{ currentMonth }}</span>
+                    </div>
 
-                        <div class="font-medium">
-                            <span class="opacity-80">මාර්ග අංකය: </span>
-                            <span>{{ routeId }}</span>
-                        </div>
+                    <div
+                        class="font-medium text-gray-800 min-w-[120px] sm:flex-1 text-right sm:text-left"
+                    >
+                        <span class="">මාර්ග අංකය:</span>
+                        <span>{{ routeId }}</span>
                     </div>
                 </div>
             </div>
@@ -127,12 +127,10 @@ export default {
     },
 
     mounted() {
-        // Format month like: "January 2025"
         const date = new Date();
         const year = date.getFullYear();
         const month = String(date.getMonth() + 1).padStart(2, "0");
 
-        // Format: YYYY-MM
         this.currentMonth = `${year}-${month}`;
     },
 
@@ -141,9 +139,6 @@ export default {
             this.selectedMeter = meter;
         },
 
-        /**
-         * FIXED: Next meter selection based on array index
-         */
         selectNextMeter() {
             const meters = this.$refs.meterList.meters;
             const currentIndex = meters.findIndex(

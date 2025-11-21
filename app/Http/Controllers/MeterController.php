@@ -82,7 +82,7 @@ class MeterController extends Controller
                 ->post(config('api.base_url') . '/V2/process/update_meter/', $body);
 
             return $response->json();
-            
+
         } catch (\Exception $e) {
             Log::error('Update meter API error: ' . $e->getMessage());
             return response()->json(['Status' => 500, 'Message' => 'API error']);
