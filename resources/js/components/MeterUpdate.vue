@@ -172,7 +172,8 @@ export default {
                 if (response.data.Status === 200) {
                     const html = this.generateBillHTML(response.data);
                     // this.printBill(html);
-                    this.printBillTest(html);
+                    // this.printBillTest(html);
+                    await this.saveAndPrint(html);
 
                     this.success = "Bill generated successfully";
 
@@ -222,6 +223,30 @@ export default {
         },
 
         // test
+        btPrintBillUrl(url) {
+            console.log(" URL:", url);
+            const encodedUrl = encodeURIComponent(url);
+            const printUrl = `print://escpos.org/escpos/bt/print?srcTp=uri&srcObj=html&src='${encodedUrl}'`;
+            console.log("Final print URL:", printUrl); 
+            window.location.href = printUrl;
+        },
+
+        // Function to save the bill and print it
+        async saveAndPrint(html) {
+            try {
+                const filename = `bill_${this.routeId}.html`;
+                const response = await axios.post("/api/save-bill", {
+                    html: html,
+                    filename: filename,
+                });
+                const fileUrl = response.data.url;
+                this.btPrintBillUrl(fileUrl);
+            } catch (error) {
+                console.error("Error saving bill:", error);
+                this.error = "Failed to save bill for printing";
+            }
+        },
+
         generateDynamicHTML() {
             let dynHtml = `print://escpos.org/escpos/bt/print?srcTp=uri&srcObj=html&src='data:text/html,`;
             dynHtml += `<h1 style='text-align:center'>PRINTING DYNAMICALLY GENERATED HTML</h1>'`;
