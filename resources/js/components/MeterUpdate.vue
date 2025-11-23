@@ -372,11 +372,13 @@ export default {
             dynHtml += `<span style='float:right; text-decoration:underline; border-bottom:2px solid #000;'>${data.TotalDue}.00</span>`;
             dynHtml += `</h3>`;
 
+            dynHtml += `<div style='clear:both;'></div>`;
+
             dynHtml += `<hr/>`;
 
             // FOOTER
             dynHtml += `<h3 style='text-align:center; margin-top:4px; line-height:1.2;'>ස්තුතියි !</h3>`;
-            dynHtml += `<p style='text-align:center; line-height:1.2;'>© eTechnoLab • 0770 647 647</p><br/><br/>`;
+            dynHtml += `<p style='text-align:center; line-height:1.2;'>© eTechnoLabs • 0770 647 647</p><br/><br/>`;
 
             dynHtml += `'`;
 
