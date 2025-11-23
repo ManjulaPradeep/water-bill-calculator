@@ -186,9 +186,24 @@ export default {
             this.nowReading = "";
         },
 
+        // printBill(html) {
+        //     const encoded = encodeURIComponent(html);
+        //     window.location.href = `loopedlabs://print?html=${encoded}`;
+        // },
+
         printBill(html) {
             const encoded = encodeURIComponent(html);
-            window.location.href = `loopedlabs://print?html=${encoded}`;
+
+            const printLink =
+                "print://escpos.org/escpos/bt/print" +
+                "?srcTp=uri" +
+                "&srcObj=html" +
+                "&numCopies=1" +
+                "&src='data:text/html," +
+                encoded +
+                "'";
+
+            window.location.href = printLink;
         },
 
         generateBillHTML(data) {
