@@ -4,6 +4,14 @@
             {{ translations.UpdateMeterReading }}
         </h3>
 
+        <!-- test -->
+        <button
+            class="w-full bg-blue-600 text-white py-2 rounded-lg"
+            @click="generateDynamicHTML"
+        >
+            Test Printer
+        </button>
+
         <div class="space-y-4 text-sm">
             <div>
                 <p class="font-semibold text-lg text-gray-700">
@@ -205,6 +213,16 @@ export default {
 
             window.location.href = printLink;
         },
+
+
+
+        // test
+    generateDynamicHTML() {
+      let dynHtml = `print://escpos.org/escpos/bt/print?srcTp=uri&srcObj=html&src='data:text/html,`;
+      dynHtml += `<h1 style='text-align:center'>PRINTING DYNAMICALLY GENERATED HTML</h1>'`;
+      window.location.href = dynHtml;
+    },
+
 
         generateBillHTML(data) {
             return `
