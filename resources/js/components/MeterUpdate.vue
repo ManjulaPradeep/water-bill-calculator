@@ -12,6 +12,16 @@
             Test Printer
         </button>
 
+
+        <a href="print://escpos.org/escpos/bt/print?srcTp=uri
+   &srcObj=html
+   &numCopies=1 //added in version 2.3.2
+   &src='https://wb.hrms.lk/storage/bills/bill_001.html'">Print Me !</a>
+
+   <br/><br/>
+
+        <!-- test end -->
+
         <div class="space-y-4 text-sm">
             <div>
                 <p class="font-semibold text-lg text-gray-700">
