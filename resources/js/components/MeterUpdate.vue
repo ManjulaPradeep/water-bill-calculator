@@ -200,7 +200,7 @@ export default {
         // },
 
         printBill(html) {
-            const encoded = encodeURIComponent(html);
+            // const encoded = encodeURIComponent(html);
 
             const printLink =
                 "print://escpos.org/escpos/bt/print" +
@@ -208,7 +208,7 @@ export default {
                 "&srcObj=html" +
                 "&numCopies=1" +
                 "&src='data:text/html," +
-                encoded +
+                html +
                 "'";
 
             window.location.href = printLink;
