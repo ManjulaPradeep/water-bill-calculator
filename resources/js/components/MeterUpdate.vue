@@ -263,159 +263,31 @@ export default {
             window.location.href = dynHtml;
         },
 
-generateBillHTML(data) {
+
+        generateBillHTML(data) {
     return `
 <html>
   <head>
     <meta charset="UTF-8" />
-    <style>
-      body {
-        width: 220px;          /* 58mm roll width */
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 5px;
-        font-size: 12px;       /* slightly smaller */
-        line-height: 1.2;
-      }
-
-      .center { text-align: center; }
-      .bold { font-weight: bold; }
-
-      .line { border-bottom: 1px solid #000; margin: 4px 0; }
-      .double-line { border-bottom: 2px solid #000; margin: 6px 0; }
-      .dash { border-bottom: 1px dashed #000; margin: 6px 0; }
-
-      .row {
-        display: flex;
-        justify-content: space-between;
-        margin: 1px 0;
-      }
-
-      table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-top: 2px;
-      }
-
-      td {
-        padding: 2px 0;
-      }
-
-      .right { text-align: right; }
-      .underline {
-        border-bottom: 1px solid #000;
-        display: inline-block;
-        min-width: 40px;
-        padding-bottom: 1px;
-      }
-
-      .footer {
-        text-align: center;
-        margin-top: 8px;
-        font-size: 10px;
-      }
-    </style>
   </head>
+  <body style="width:220px; font-family:monospace; margin:0; padding:5px; line-height:1.2; font-size:12px;">
 
-  <body>
+    <h3 style="text-align:center; margin:2px 0;">කුඩා නගර ජලසම්පාදන</h3>
+    <h4 style="text-align:center; margin:2px 0;">ක්‍රමය</h4>
+    <h4 style="text-align:center; margin:2px 0;">මානව සංවර්ධන සංසදය, පල්ලෙබැද්ද</h4>
+    <p style="text-align:center; margin:2px 0;">0452241148 / 0775881173</p>
+    <h4 style="text-align:center; margin:2px 0;">මාසික බිල්පත</h4>
+    <hr style="border-top:1px solid #000; margin:4px 0;">
 
-    <div class="center bold" style="font-size:14px; line-height: 1.2;">
-      කුඩා නගර ජලසම්පාදන<br/>
-      ක්‍රමය<br/>
-      මානව සංවර්ධන සංසදය, පල්ලෙබැද්ද <br/>
-    </div>
 
-    <div class="center" style="margin-top:3px;">0452241148 / 0775881173</div>
-    <div class="center" style="margin-top:3px;">මාසික බිල්පත</div>
-    <div class="line"></div>
-
-    <div class="row">
-      <span class="bold">${data.ReadingDate}</span>
-    </div>
-
-    <div class="row">
-      <span class="bold">${data.InvoiceID}</span>
-    </div>
-
-    <div class="dash"></div>
-
-    <div class="row">
-      <span>පාරිභෝගික අංකය</span>
-      <span class="bold">${data.CustomerCode}</span>
-    </div>
-
-    <div class="row" style="margin-bottom:6px;">
-      <span>පාරිභෝගික නම</span>
-      <span class="bold">${data.CustomerName}</span>
-    </div>
-
-    <div class="dash"></div>
-
-    <div class="row bold">
-      <span>Avg. Unit</span>
-      <span>${data.AvgUnit}.00</span>
-    </div>
-
-    <div class="dash"></div>
-
-    <table>
-      <tr>
-        <td>නව මනු කියවීම</td>
-        <td class="right bold">${data.NowReading}</td>
-      </tr>
-      <tr>
-        <td>පෙර මනු කියවීම</td>
-        <td class="right bold"><span class="underline">${data.PreReading}</span></td>
-      </tr>
-      <tr>
-        <td>ජල ඒකක</td>
-        <td class="right bold"><span class="underline">${data.TotalUnits}</span></td>
-      </tr>
-    </table>
-
-    <table>
-      <tr>
-        <td>ස්ථාවර ගාස්තුව</td>
-        <td class="right bold">${data.FixedAmount}.00</td>
-      </tr>
-      <tr>
-        <td>ඒකක ගාස්තුව</td>
-        <td class="right bold">${data.UnitAmount}.00</td>
-      </tr>
-      <tr>
-        <td>වෙනත් - / +</td>
-        <td class="right bold"><span class="underline">${data.CrDR}.00</span></td>
-      </tr>
-      <tr>
-        <td class="bold">බිල්පත් ගාස්තුව</td>
-        <td class="right bold"><span class="underline">${data.TotalAmount}.00</span></td>
-      </tr>
-    </table>
-
-    <table>
-      <tr>
-        <td class="bold">ශේෂය ඉ/ගෙ</td>
-        <td class="right bold">${data.LastMonthDue}.00</td>
-      </tr>
-      <tr>
-        <td>ණය වාරික</td>
-        <td class="right bold"><span class="underline">${data.Installment}.00</span></td>
-      </tr>
-    </table>
-
-    <div class="row bold" style="font-size:14px; margin-top:3px;">
-      <span>ගෙවිය යුතු මුදල</span>
-      <span class="right"><span class="underline" style="border-bottom-width:2px;">${data.TotalDue}.00</span></span>
-    </div>
-
-    <div class="double-line"></div>
-    <div class="center bold" style="margin-top:4px;">ස්තුතියි !</div>
-    <div class="footer">© eTechnoLab • 0770 647 647</div>
+    <h4 style="text-align:center; margin:2px 0;">ස්තුතියි !</h4>
+    <p style="text-align:center; margin:2px 0;">© eTechnoLab • 0770 647 647</p>
 
   </body>
 </html>
     `;
-},
+}
+
 
     },
 };
