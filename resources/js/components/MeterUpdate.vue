@@ -182,10 +182,11 @@ export default {
                 const response = await axios.post("/api/meter/update", body);
 
                 if (response.data.Status === 200) {
-                    const html = this.generateBillHTML(response.data);
+                    // const html = this.generateBillHTML(response.data);
                     // this.printBill(html);
                     // this.printBillTest(html);
-                    await this.saveAndPrint(html);
+                    // await this.saveAndPrint(html);
+                    this.printBill(response.data);
 
                     this.success = "Bill generated successfully";
 
@@ -213,19 +214,63 @@ export default {
         //     window.location.href = `loopedlabs://print?html=${encoded}`;
         // },
 
-        printBill(html) {
-            // const encoded = encodeURIComponent(html);
+        printBill(data) {
+            let dynHtml = `print://escpos.org/escpos/bt/print?srcTp=uri&srcObj=html&src='data:text/html,`;
 
-            const printLink =
-                "print://escpos.org/escpos/bt/print" +
-                "?srcTp=uri" +
-                "&srcObj=html" +
-                "&numCopies=1" +
-                "&src='data:text/html," +
-                html +
-                "'";
+            // HEADER
+            dynHtml += `<h3 style='text-align:center; font-size:14px; line-height:1.2;'>`;
+            dynHtml += `කුඩා නගර ජලසම්පාදන<br/>`;
+            dynHtml += `ක්‍රමය<br/>`;
+            dynHtml += `මානව සංවර්ධන සංසදය, පල්ලෙබැද්ද<br/>`;
+            dynHtml += `</h3>`;
 
-            window.location.href = printLink;
+            dynHtml += `<p style='text-align:center; margin-top:3px;'>0452241148 / 0775881173</p>`;
+            dynHtml += `<p style='text-align:center; margin-top:3px;'>මාසික බිල්පත</p>`;
+            dynHtml += `<hr/>`;
+
+            // DATE / BILL NO
+            dynHtml += `<p><span style='font-weight:bold;'>${data.ReadingDate}</span></p>`;
+            dynHtml += `<p><span style='font-weight:bold;'>${data.InvoiceID}</span></p>`;
+            dynHtml += `<hr/>`;
+
+            // CUSTOMER DETAILS
+            dynHtml += `<p><span>පාරිභෝගික අංකය</span> — <span style='font-weight:bold;'>${data.CustomerCode}</span></p>`;
+            dynHtml += `<p style='margin-bottom:6px;'><span>පාරිභෝගික නම</span> — <span style='font-weight:bold;'>${data.CustomerName}</span></p>`;
+            dynHtml += `<hr/>`;
+
+            // AVERAGE
+            dynHtml += `<p style='font-weight:bold;'><span>Avg. Unit</span> — <span>${data.AvgUnit}.00</span></p>`;
+            dynHtml += `<hr/>`;
+
+            // READINGS TABLE
+            dynHtml += `<p>නව මනු කියවීම <span style='float:right; font-weight:bold;'>${data.NowReading}</span></p>`;
+            dynHtml += `<p>පෙර මනු කියවීම <span style='float:right; font-weight:bold; text-decoration:underline;'>${data.PreReading}</span></p>`;
+            dynHtml += `<p>ජල ඒකක <span style='float:right; font-weight:bold; text-decoration:underline;'>${data.TotalUnits}</span></p>`;
+
+            // AMOUNTS TABLE
+            dynHtml += `<p>ස්ථාවර ගාස්තුව <span style='float:right; font-weight:bold;'>${data.FixedAmount}.00</span></p>`;
+            dynHtml += `<p>ඒකක ගාස්තුව <span style='float:right; font-weight:bold;'>${data.UnitAmount}.00</span></p>`;
+            dynHtml += `<p>වෙනත් - / + <span style='float:right; font-weight:bold; text-decoration:underline;'>${data.CrDR}.00</span></p>`;
+            dynHtml += `<p style='font-weight:bold;'>බිල්පත් ගාස්තුව <span style='float:right; font-weight:bold; text-decoration:underline;'>${data.TotalAmount}.00</span></p>`;
+
+            // BALANCE
+            dynHtml += `<p style='font-weight:bold;'>ශේෂය ඉ/ගෙ <span style='float:right;'>${data.LastMonthDue}.00</span></p>`;
+            dynHtml += `<p>ණය වාරික <span style='float:right; font-weight:bold; text-decoration:underline;'>${data.Installment}.00</span></p>`;
+
+            // TOTAL PAYABLE
+            dynHtml += `<h3 style='font-size:14px; margin-top:4px; font-weight:bold;'>`;
+            dynHtml += `ගෙවිය යුතු මුදල`;
+            dynHtml += `<span style='float:right; text-decoration:underline; border-bottom:2px solid #000;'>${data.TotalDue}.00</span>`;
+            dynHtml += `</h3>`;
+
+            dynHtml += `<hr/>`;
+
+            // FOOTER
+            dynHtml += `<h3 style='text-align:center; margin-top:4px; font-weight:bold;'>ස්තුතියි !</h3>`;
+            dynHtml += `<p style='text-align:center;'>© eTechnoLab • 0770 647 647</p>`;
+
+            dynHtml += `'`;
+            window.location.href = dynHtml;
         },
 
         printBillTest(html) {
