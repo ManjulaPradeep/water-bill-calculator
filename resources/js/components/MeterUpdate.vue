@@ -217,7 +217,7 @@ export default {
 
         printBillTest(html) {
             let dynHtmlTest = `print://escpos.org/escpos/bt/print?srcTp=uri&srcObj=html&src='data:text/html,`;
-            dynHtml += html;
+            dynHtmlTest += html + "'";
             window.location.href = dynHtmlTest;
         },
 
