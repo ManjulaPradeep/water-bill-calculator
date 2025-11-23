@@ -246,81 +246,141 @@ export default {
         //     window.location.href = dynHtml;
         // },
 
+        // printBill(data) {
+        //     let html = `
+
+        // <h3 style='text-align:center; margin:0; padding:0;'>
+        //     කුඩා නගර ජලසම්පාදන<br/>
+        //     ක්‍රමය<br/>
+        //     මානව සංවර්ධන සංසදය, පල්ලෙබැද්ද
+        // </h3>
+
+        // <p style='text-align:center; margin:2px 0 4px 0;'>0452241148 / 0775881173</p>
+        // <p style='text-align:center; margin:2px 0;'>මාසික බිල්පත</p>
+        // <hr style='margin:4px 0;'/>
+
+        // <p style='margin:2px 0;'>දිනය : <span style='float:right;'>${data.ReadingDate}</span></p>
+        // <p style='margin:2px 0;'>බිල් අංකය : <span style='float:right;'>${data.InvoiceID}</span></p>
+        // <hr style='margin:4px 0;'/>
+
+        // <p style='margin:2px 0;'>පාරිභෝගික අංකය <span style='float:right;'>${data.CustomerCode}</span></p>
+        // <p style='margin:2px 0 6px 0;'>නම <span style='float:right;'>${data.CustomerName}</span></p>
+        // <hr style='margin:4px 0;'/>
+
+        // <p style='margin:2px 0;'>Avg. Unit <span style='float:right;'>${data.AvgUnit}.00</span></p>
+        // <hr style='margin:4px 0;'/>
+
+        // <p style='margin:2px 0;'>නව මනු කියවීම
+        //     <span style='float:right;'>${data.NowReading}</span>
+        // </p>
+
+        // <p style='margin:2px 0;'>පෙර මනු කියවීම
+        //     <span style='float:right; display:inline-block; width:60px; text-align:right; border-bottom:1px solid #000;'>${data.PreReading}</span>
+        // </p>
+
+        // <p style='margin:2px 0 10px 0;'>ජල ඒකක
+        //     <span style='float:right; display:inline-block; width:60px; text-align:right; border-bottom:1px solid #000;'>${data.TotalUnits}</span>
+        // </p>
+
+        // <p style='margin:2px 0;'>ස්ථාවර ගාස්තුව
+        //     <span style='float:right;'>${data.FixedAmount}.00</span>
+        // </p>
+
+        // <p style='margin:2px 0;'>ඒකක ගාස්තුව
+        //     <span style='float:right;'>${data.UnitAmount}.00</span>
+        // </p>
+
+        // <p style='margin:2px 0;'>වෙනත් - / +
+        //     <span style='float:right; display:inline-block; width:60px; text-align:right; border-bottom:1px solid #000;'>${data.CrDR}.00</span>
+        // </p>
+
+        // <p style='margin:2px 0 10px 0;'>බිල්පත් ගාස්තුව
+        //     <span style='float:right; display:inline-block; width:60px; text-align:right; border-bottom:1px solid #000;'>${data.TotalAmount}.00</span>
+        // </p>
+
+        // <p style='margin:2px 0;'>ශේෂය ඉ/ගෙ
+        //     <span style='float:right;'>${data.LastMonthDue}.00</span>
+        // </p>
+
+        // <p style='margin:2px 0;'>ණය වාරික
+        //     <span style='float:right; display:inline-block; width:80px; text-align:right; border-bottom:1px solid #000;'>${data.Installment}.00</span>
+        // </p>
+
+        // <h3 style='margin:2px 0 10px 0; font-size:13px;'>
+        //     ගෙවිය යුතු මුදල
+        //     <span style='float:right; display:inline-block; width:80px; text-align:right; border-bottom:2px solid #000;'>${data.TotalDue}.00</span>
+        // </h3>
+
+        // <hr style='margin:6px 0;'/>
+
+        // <p style='text-align:center; margin:4px 0;'>ස්තුතියි !</p>
+        // <p style='text-align:center; margin:4px 0;'>© eTechnoLab • 0770 647 647</p> `;
+
+        //     console.log("HTML for print:\n\n", html);
+
+        //     const dynHtml = `print://escpos.org/escpos/bt/print?srcTp=uri&srcObj=html&src='data:text/html,${html}'`;
+
+        //     window.location.href = dynHtml;
+        // },
+
         printBill(data) {
-            let html = `
+            let dynHtml = `print://escpos.org/escpos/bt/print?srcTp=uri&srcObj=html&src='data:text/html,`;
 
-        <h3 style='text-align:center; margin:0; padding:0;'>
-            කුඩා නගර ජලසම්පාදන<br/>
-            ක්‍රමය<br/>
-            මානව සංවර්ධන සංසදය, පල්ලෙබැද්ද
-        </h3>
+            // HEADER
+            dynHtml += `<h3 style='text-align:center; font-size:14px; line-height:1.2;'>`;
+            dynHtml += `කුඩා නගර ජලසම්පාදන<br/>`;
+            dynHtml += `ක්‍රමය<br/>`;
+            dynHtml += `මානව සංවර්ධන සංසදය, පල්ලෙබැද්ද<br/>`;
+            dynHtml += `</h3>`;
 
-        <p style='text-align:center; margin:2px 0 4px 0;'>0452241148 / 0775881173</p>
-        <p style='text-align:center; margin:2px 0;'>මාසික බිල්පත</p>
-        <hr style='margin:4px 0;'/>
+            dynHtml += `<p style='text-align:center; margin-top:3px; line-height:1.2;'>0452241148 / 0775881173</p>`;
+            dynHtml += `<p style='text-align:center; margin-top:1px; line-height:1.2;'>මාසික බිල්පත</p>`;
+            dynHtml += `<hr/>`;
 
-        <p style='margin:2px 0;'>දිනය : <span style='float:right;'>${data.ReadingDate}</span></p>
-        <p style='margin:2px 0;'>බිල් අංකය : <span style='float:right;'>${data.InvoiceID}</span></p>
-        <hr style='margin:4px 0;'/>
+            // DATE / BILL NO
+            dynHtml += `<p style='line-height:1.2;'><span>${data.ReadingDate}</span></p>`;
+            dynHtml += `<p style='line-height:1.2;'><span>${data.InvoiceID}</span></p>`;
+            dynHtml += `<hr/>`;
 
-        <p style='margin:2px 0;'>පාරිභෝගික අංකය <span style='float:right;'>${data.CustomerCode}</span></p>
-        <p style='margin:2px 0 6px 0;'>නම <span style='float:right;'>${data.CustomerName}</span></p>
-        <hr style='margin:4px 0;'/>
+            // CUSTOMER DETAILS
+            dynHtml += `<p style='line-height:1.2;'><span>පාරිභෝගික අංකය</span> — <span>${data.CustomerCode}</span></p>`;
+            dynHtml += `<p style='margin-bottom:6px; line-height:1.2;'><span>පාරිභෝගික නම</span> — <span style='font-weight:bold;'>${data.CustomerName}</span></p>`;
+            dynHtml += `<hr/>`;
 
-        <p style='margin:2px 0;'>Avg. Unit <span style='float:right;'>${data.AvgUnit}.00</span></p>
-        <hr style='margin:4px 0;'/>
+            // AVERAGE
+            dynHtml += `<p style=' line-height:1.2;'><span>Avg. Unit</span> — <span>${data.AvgUnit}.00</span></p>`;
+            dynHtml += `<hr/>`;
 
-        <p style='margin:2px 0;'>නව මනු කියවීම
-            <span style='float:right;'>${data.NowReading}</span>
-        </p>
+            // READINGS TABLE
+            dynHtml += `<p style=' line-height:1.2;'>නව මනු කියවීම <span style='float:right;'>${data.NowReading}</span></p>`;
+            dynHtml += `<p style=' line-height:1.2;'>පෙර මනු කියවීම <span style='float:right; text-decoration:underline;'>${data.PreReading}</span></p>`;
+            dynHtml += `<p style=' line-height:1.2;'>ජල ඒකක <span style='float:right; text-decoration:underline;'>${data.TotalUnits}</span></p>`;
 
-        <p style='margin:2px 0;'>පෙර මනු කියවීම
-            <span style='float:right; display:inline-block; width:60px; text-align:right; border-bottom:1px solid #000;'>${data.PreReading}</span>
-        </p>
+            // AMOUNTS TABLE
+            dynHtml += `<p style=' line-height:1.2;'>ස්ථාවර ගාස්තුව <span style='float:right;'>${data.FixedAmount}.00</span></p>`;
+            dynHtml += `<p style=' line-height:1.2;'>ඒකක ගාස්තුව <span style='float:right;'>${data.UnitAmount}.00</span></p>`;
+            dynHtml += `<p style=' line-height:1.2;'>වෙනත් - / + <span style='float:right; text-decoration:underline;'>${data.CrDR}.00</span></p>`;
+            dynHtml += `<p style=' line-height:1.2;'>බිල්පත් ගාස්තුව <span style='float:right; text-decoration:underline;'>${data.TotalAmount}.00</span></p>`;
 
-        <p style='margin:2px 0 10px 0;'>ජල ඒකක
-            <span style='float:right; display:inline-block; width:60px; text-align:right; border-bottom:1px solid #000;'>${data.TotalUnits}</span>
-        </p>
+            // BALANCE
+            dynHtml += `<p style=' line-height:1.2;'>ශේෂය ඉ/ගෙ <span style='float:right;'>${data.LastMonthDue}.00</span></p>`;
+            dynHtml += `<p style=' line-height:1.2;'>ණය වාරික <span style='float:right;  text-decoration:underline;'>${data.Installment}.00</span></p>`;
 
+            // TOTAL PAYABLE
+            dynHtml += `<h3 style='font-size:14px; margin-top:4px; line-height:1.2;'>`;
+            dynHtml += `ගෙවිය යුතු මුදල`;
+            dynHtml += `<span style='float:right; text-decoration:underline; border-bottom:2px solid #000;'>${data.TotalDue}.00</span>`;
+            dynHtml += `</h3>`;
 
-        <p style='margin:2px 0;'>ස්ථාවර ගාස්තුව
-            <span style='float:right;'>${data.FixedAmount}.00</span>
-        </p>
+            dynHtml += `<hr/>`;
 
-        <p style='margin:2px 0;'>ඒකක ගාස්තුව
-            <span style='float:right;'>${data.UnitAmount}.00</span>
-        </p>
+            // FOOTER
+            dynHtml += `<h3 style='text-align:center; margin-top:4px; line-height:1.2;'>ස්තුතියි !</h3>`;
+            dynHtml += `<p style='text-align:center; line-height:1.2;'>© eTechnoLab • 0770 647 647</p><br/><br/>`;
 
-        <p style='margin:2px 0;'>වෙනත් - / +
-            <span style='float:right; display:inline-block; width:60px; text-align:right; border-bottom:1px solid #000;'>${data.CrDR}.00</span>
-        </p>
+            dynHtml += `'`;
 
-        <p style='margin:2px 0 10px 0;'>බිල්පත් ගාස්තුව
-            <span style='float:right; display:inline-block; width:60px; text-align:right; border-bottom:1px solid #000;'>${data.TotalAmount}.00</span>
-        </p>
-
-        <p style='margin:2px 0;'>ශේෂය ඉ/ගෙ
-            <span style='float:right;'>${data.LastMonthDue}.00</span>
-        </p>
-
-        <p style='margin:2px 0;'>ණය වාරික
-            <span style='float:right; display:inline-block; width:80px; text-align:right; border-bottom:1px solid #000;'>${data.Installment}.00</span>
-        </p>
-
-        <h3 style='margin:2px 0 10px 0; font-size:13px;'>
-            ගෙවිය යුතු මුදල
-            <span style='float:right; display:inline-block; width:80px; text-align:right; border-bottom:2px solid #000;'>${data.TotalDue}.00</span>
-        </h3>
-
-        <hr style='margin:6px 0;'/>
-
-        <p style='text-align:center; margin:4px 0;'>ස්තුතියි !</p>
-        <p style='text-align:center; margin:4px 0;'>© eTechnoLab • 0770 647 647</p> `;
-
-            console.log("HTML for print:\n\n", html);
-
-            const dynHtml = `print://escpos.org/escpos/bt/print?srcTp=uri&srcObj=html&src='data:text/html,${html}'`;
-
+            console.log('final print:', dynHtml);
             window.location.href = dynHtml;
         },
 
