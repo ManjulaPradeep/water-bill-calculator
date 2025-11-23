@@ -367,10 +367,10 @@ export default {
             dynHtml += `<p style=' line-height:1.2;'>ණය වාරික <span style='float:right;  text-decoration:underline;'>${data.Installment}.00</span></p>`;
 
             // TOTAL PAYABLE
-            dynHtml += `<h3 style='font-size:14px; margin-top:4px; line-height:1.2;'>`;
-            dynHtml += `ගෙවිය යුතු මුදල`;
-            dynHtml += `<span style='float:right; text-decoration:underline; border-bottom:2px solid #000;'>${data.TotalDue}.00</span>`;
-            dynHtml += `</h3>`;
+            dynHtml += `<p style='margin-top:4px; font-size:14px; line-height:1.2; display:flex; justify-content:space-between;'>`;
+            dynHtml += `<span>ගෙවිය යුතු මුදල</span>`;
+            dynHtml += `<span style='text-decoration:underline; border-bottom:2px solid #000; display:inline-block; min-width:80px; text-align:right;'>${data.TotalDue}.00</span>`;
+            dynHtml += `</p>`;
 
             dynHtml += `<div style='clear:both;'></div>`;
 
@@ -382,7 +382,7 @@ export default {
 
             dynHtml += `'`;
 
-            console.log('final print:', dynHtml);
+            console.log("final print:", dynHtml);
             window.location.href = dynHtml;
         },
 
