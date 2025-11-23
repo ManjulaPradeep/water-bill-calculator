@@ -270,18 +270,16 @@ export default {
   <head>
     <meta charset="UTF-8" />
   </head>
-  <body style="width:220px; font-family:monospace; margin:0; padding:5px; line-height:1.2; font-size:12px;">
+  <body style="width:110px; font-family:monospace; margin:0; padding:5px; line-height:1.2; font-size:12px;">
 
-    <h3 style="text-align:center; margin:2px 0;">කුඩා නගර ජලසම්පාදන</h3>
-    <h4 style="text-align:center; margin:2px 0;">ක්‍රමය</h4>
-    <h4 style="text-align:center; margin:2px 0;">මානව සංවර්ධන සංසදය, පල්ලෙබැද්ද</h4>
-    <p style="text-align:center; margin:2px 0;">0452241148 / 0775881173</p>
-    <h4 style="text-align:center; margin:2px 0;">මාසික බිල්පත</h4>
-    <hr style="border-top:1px solid #000; margin:4px 0;">
+    <h3 style="text-align:center;">කුඩා නගර ජලසම්පාදන</h3>
+    <h4 style="text-align:center;">ක්‍රමය</h4>
+    <h4 style="text-align:center;">මානව සංවර්ධන සංසදය, පල්ලෙබැද්ද</h4>
+    <p style="text-align:center;">0452241148 / 0775881173</p>
+    <h4 style="text-align:center;">මාසික බිල්පත</h4>
 
-
-    <h4 style="text-align:center; margin:2px 0;">ස්තුතියි !</h4>
-    <p style="text-align:center; margin:2px 0;">© eTechnoLab • 0770 647 647</p>
+    <h4 style="text-align:center;">ස්තුතියි !</h4>
+    <p style="text-align:center;">© eTechnoLab • 0770 647 647</p>
 
   </body>
 </html>
