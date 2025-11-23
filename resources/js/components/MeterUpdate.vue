@@ -278,7 +278,7 @@ export default {
   <head>
     <meta charset="UTF-8" />
   </head>
-  <body style="width:110px; font-family:monospace; margin:0; padding:5px; line-height:1.2; font-size:12px;">
+  <body>
 
     <h3 style="text-align:center;">කුඩා නගර ජලසම්පාදන</h3>
     <h4 style="text-align:center;">ක්‍රමය</h4>
