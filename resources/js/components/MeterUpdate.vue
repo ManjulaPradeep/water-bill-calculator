@@ -171,7 +171,8 @@ export default {
 
                 if (response.data.Status === 200) {
                     const html = this.generateBillHTML(response.data);
-                    this.printBill(html);
+                    // this.printBill(html);
+                    this.printBillTest(html);
 
                     this.success = "Bill generated successfully";
 
@@ -214,15 +215,18 @@ export default {
             window.location.href = printLink;
         },
 
-
+        printBillTest(html) {
+            let dynHtmlTest = `print://escpos.org/escpos/bt/print?srcTp=uri&srcObj=html&src='data:text/html,`;
+            dynHtml += html;
+            window.location.href = dynHtmlTest;
+        },
 
         // test
-    generateDynamicHTML() {
-      let dynHtml = `print://escpos.org/escpos/bt/print?srcTp=uri&srcObj=html&src='data:text/html,`;
-      dynHtml += `<h1 style='text-align:center'>PRINTING DYNAMICALLY GENERATED HTML</h1>'`;
-      window.location.href = dynHtml;
-    },
-
+        generateDynamicHTML() {
+            let dynHtml = `print://escpos.org/escpos/bt/print?srcTp=uri&srcObj=html&src='data:text/html,`;
+            dynHtml += `<h1 style='text-align:center'>PRINTING DYNAMICALLY GENERATED HTML</h1>'`;
+            window.location.href = dynHtml;
+        },
 
         generateBillHTML(data) {
             return `
