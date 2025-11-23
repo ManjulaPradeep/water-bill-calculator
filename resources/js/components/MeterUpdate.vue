@@ -227,7 +227,7 @@ export default {
             console.log(" URL:", url);
             const encodedUrl = encodeURIComponent(url);
             const printUrl = `print://escpos.org/escpos/bt/print?srcTp=uri&srcObj=html&src='${encodedUrl}'`;
-            console.log("Final print URL:", printUrl); 
+            console.log("Final print URL:", printUrl);
             window.location.href = printUrl;
         },
 
@@ -253,83 +253,70 @@ export default {
             window.location.href = dynHtml;
         },
 
-        generateBillHTML(data) {
-            return `
+generateBillHTML(data) {
+    return `
 <html>
   <head>
     <meta charset="UTF-8" />
     <style>
       body {
-        width: 300px;
+        width: 220px;          /* 58mm roll width */
         font-family: Arial, sans-serif;
         margin: 0;
-        padding: 10px;
-        font-size: 13px;
+        padding: 5px;
+        font-size: 12px;       /* slightly smaller */
+        line-height: 1.2;
       }
 
       .center { text-align: center; }
       .bold { font-weight: bold; }
 
-      .line {
-        border-bottom: 1px solid #000;
-        margin: 6px 0;
-      }
-
-      .double-line {
-        border-bottom: 2px solid #000;
-        margin: 8px 0;
-      }
-
-      .dash {
-        border-bottom: 1px dashed #000;
-        margin: 8px 0;
-      }
+      .line { border-bottom: 1px solid #000; margin: 4px 0; }
+      .double-line { border-bottom: 2px solid #000; margin: 6px 0; }
+      .dash { border-bottom: 1px dashed #000; margin: 6px 0; }
 
       .row {
         display: flex;
         justify-content: space-between;
-        margin: 2px 0;
+        margin: 1px 0;
       }
 
       table {
         width: 100%;
         border-collapse: collapse;
-        margin-top: 3px;
+        margin-top: 2px;
       }
 
       td {
-        padding: 3px 0;
+        padding: 2px 0;
       }
 
       .right { text-align: right; }
-
       .underline {
         border-bottom: 1px solid #000;
         display: inline-block;
-        min-width: 60px;
+        min-width: 40px;
         padding-bottom: 1px;
       }
 
       .footer {
         text-align: center;
-        margin-top: 15px;
-        font-size: 11px;
+        margin-top: 8px;
+        font-size: 10px;
       }
     </style>
   </head>
 
   <body>
 
-    <div class="center bold" style="font-size:15px; line-height: 1.3;">
+    <div class="center bold" style="font-size:14px; line-height: 1.2;">
       කුඩා නගර ජලසම්පාදන<br/>
       ක්‍රමය<br/>
       මානව සංවර්ධන සංසදය, පල්ලෙබැද්ද <br/>
     </div>
 
-    <div class="center" style="margin-top:5px;">0452241148 / 0775881173</div>
-
-    <div class="center" style="margin-top:5px;">මාසික බිල්පත</div>
-
+    <div class="center" style="margin-top:3px;">0452241148 / 0775881173</div>
+    <div class="center" style="margin-top:3px;">මාසික බිල්පත</div>
     <div class="line"></div>
 
     <div class="row">
@@ -347,8 +334,7 @@ export default {
       <span class="bold">${data.CustomerCode}</span>
     </div>
 
-    <!-- FIX #1: Add margin bottom -->
-    <div class="row" style="margin-bottom:10px;">
+    <div class="row" style="margin-bottom:6px;">
       <span>පාරිභෝගික නම</span>
       <span class="bold">${data.CustomerName}</span>
     </div>
@@ -367,97 +353,60 @@ export default {
         <td>නව මනු කියවීම</td>
         <td class="right bold">${data.NowReading}</td>
       </tr>
-
       <tr>
         <td>පෙර මනු කියවීම</td>
-
-        <!-- FIX #2: Underline ONLY the value -->
-        <td class="right bold">
-          <span class="underline">${data.PreReading}</span>
-        </td>
+        <td class="right bold"><span class="underline">${data.PreReading}</span></td>
       </tr>
-
       <tr>
         <td>ජල ඒකක</td>
-
-        <!-- FIX #3: Underline ONLY the value -->
-        <td class="right bold">
-          <span class="underline">${data.TotalUnits}</span>
-        </td>
+        <td class="right bold"><span class="underline">${data.TotalUnits}</span></td>
       </tr>
     </table>
-
-    <br/>
 
     <table>
       <tr>
         <td>ස්ථාවර ගාස්තුව</td>
         <td class="right bold">${data.FixedAmount}.00</td>
       </tr>
-
       <tr>
         <td>ඒකක ගාස්තුව</td>
         <td class="right bold">${data.UnitAmount}.00</td>
       </tr>
-
       <tr>
         <td>වෙනත් - / +</td>
-
-        <!-- FIX #4 underline CrDr -->
-        <td class="right bold">
-          <span class="underline">${data.CrDR}.00</span>
-        </td>
+        <td class="right bold"><span class="underline">${data.CrDR}.00</span></td>
       </tr>
-
       <tr>
         <td class="bold">බිල්පත් ගාස්තුව</td>
-
-        <!-- FIX #4 underline TotalAmount -->
-        <td class="right bold">
-          <span class="underline">${data.TotalAmount}.00</span>
-        </td>
+        <td class="right bold"><span class="underline">${data.TotalAmount}.00</span></td>
       </tr>
-      </table>
+    </table>
 
-      <br/>
-
-<table>
+    <table>
       <tr>
         <td class="bold">ශේෂය ඉ/ගෙ</td>
         <td class="right bold">${data.LastMonthDue}.00</td>
       </tr>
-
       <tr>
         <td>ණය වාරික</td>
-        <td class="right bold">
-        <span class="underline">${data.Installment}.00</span></td>
+        <td class="right bold"><span class="underline">${data.Installment}.00</span></td>
       </tr>
     </table>
 
-
-
-    <div class="row bold" style="font-size:16px; margin-top:5px;">
+    <div class="row bold" style="font-size:14px; margin-top:3px;">
       <span>ගෙවිය යුතු මුදල</span>
-
-      <!-- FIX #5 double underline -->
-      <span class="right">
-        <span class="underline" style="border-bottom-width:2px;">${data.TotalDue}.00</span>
-      </span>
+      <span class="right"><span class="underline" style="border-bottom-width:2px;">${data.TotalDue}.00</span></span>
     </div>
 
-    <br/>
-
     <div class="double-line"></div>
-
-    <div class="center bold" style="margin-top:8px;">ස්තුතියි !</div>
-
+    <div class="center bold" style="margin-top:4px;">ස්තුතියි !</div>
     <div class="footer">© eTechnoLab • 0770 647 647</div>
 
   </body>
 </html>
-
     `;
-        },
+},
+
     },
 };
 </script>
