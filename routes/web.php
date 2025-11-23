@@ -5,7 +5,6 @@ use App\Http\Controllers\Dashboard\Dashboard;
 use App\Http\Controllers\MeterController;
 use App\Http\Controllers\MeterList;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Storage;
 
 Route::get('/', function () {
     return view('auth.login');
@@ -26,14 +25,3 @@ Route::post('/api/meter/update', [MeterController::class, 'update']);
 // });
 
 
-Route::post('api/save-bill', function (\Illuminate\Http\Request $request) {
-    $html = $request->input('html');
-    $filename = $request->input('filename', 'bill.html');
-    $path = 'bills/' . $filename;
-
-    Storage::disk('public')->put($path, $html);
-
-    return response()->json([
-        'url' => url('/storage/' . $path) 
-    ]);
-});
