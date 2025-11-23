@@ -12,13 +12,15 @@
             Test Printer
         </button>
 
-
-        <a href="print://escpos.org/escpos/bt/print?srcTp=uri
+        <a
+            href="print://escpos.org/escpos/bt/print?srcTp=uri
    &srcObj=html
    &numCopies=1 //added in version 2.3.2
-   &src='https://wb.hrms.lk/storage/bills/bill_001.html'">Print Me !</a>
+   &src='https://wb.hrms.lk/storage/bills/bill_001.html'"
+            >Print Me !</a
+        >
 
-   <br/><br/>
+        <br /><br />
 
         <!-- test end -->
 
@@ -259,13 +261,19 @@ export default {
 
         generateDynamicHTML() {
             let dynHtml = `print://escpos.org/escpos/bt/print?srcTp=uri&srcObj=html&src='data:text/html,`;
-            dynHtml += `<h1 style='text-align:center'>PRINTING DYNAMICALLY GENERATED HTML</h1>'`;
+            // dynHtml += `<h1 style='text-align:center'>PRINTING DYNAMICALLY GENERATED HTML</h1>'`;
+            dynHtml += `<h1 style='text-align:center'>PRINTING DYNAMICALLY GENERATED HTML</h1>`;
+            dynHtml += `<h3 style="text-align:center;">කුඩා නගර ජලසම්පාදන</h3>`;
+            dynHtml += `<h4 style="text-align:center;">ක්‍රමය</h4>`;
+            dynHtml += `<h4 style="text-align:center;">මානව සංවර්ධන සංසදය, පල්ලෙබැද්ද</h4>`;
+            dynHtml += `<p style="text-align:center;">0452241148 / 0775881173</p>`;
+            dynHtml += `<p style="text-align:center;">0452241148 / 0775881173</p>`;
+            dynHtml += `'`;
             window.location.href = dynHtml;
         },
 
-
         generateBillHTML(data) {
-    return `
+            return `
 <html>
   <head>
     <meta charset="UTF-8" />
@@ -284,9 +292,7 @@ export default {
   </body>
 </html>
     `;
-}
-
-
+        },
     },
 };
 </script>
