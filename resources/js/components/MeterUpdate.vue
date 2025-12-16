@@ -323,54 +323,62 @@ export default {
         //     window.location.href = dynHtml;
         // },
 
-        printBill(data) {
+
+
+
+printBill(data) {
             let dynHtml = `print://escpos.org/escpos/bt/print?srcTp=uri&srcObj=html&src='data:text/html,`;
 
             // HEADER
-            dynHtml += `<h3 style='text-align:center; font-size:14px; line-height:1.2;'>`;
+            dynHtml += `<h4 style='text-align:center;  margin:0; padding:0;'>`;
             dynHtml += `කුඩා නගර ජලසම්පාදන<br/>`;
             dynHtml += `ක්‍රමය<br/>`;
             dynHtml += `මානව සංවර්ධන සංසදය, පල්ලෙබැද්ද<br/>`;
             dynHtml += `</h3>`;
 
-            dynHtml += `<p style='text-align:center; margin-top:3px; line-height:1.2;'>0452241148 / 0775881173</p>`;
-            dynHtml += `<p style='text-align:center; margin-top:1px; line-height:1.2;'>මාසික බිල්පත</p>`;
-            dynHtml += `<hr/>`;
+            dynHtml += `<p style='text-align:center; margin:2px 0 4px 0;'>0452241148 / 0775881173</p>`;
+            dynHtml += `<p style='text-align:center; margin:2px 0;'>මාසික බිල්පත</p`;
+            dynHtml += `<hr style='margin:4px ;' />`;
 
             // DATE / BILL NO
-            dynHtml += `<p style='line-height:1.2;'><span>${data.ReadingDate}</span></p>`;
-            dynHtml += `<p style='line-height:1.2;'><span>${data.InvoiceID}</span></p>`;
-            dynHtml += `<hr/>`;
+            dynHtml += `<p style='margin:2px 0;'>දිනය : <span style='float:right;'>${data.ReadingDate} </span></p>`;
+            dynHtml += `<p style='margin:2px 0;'>බිල් අංකය : <span style='float:right;font-size:18px;'>${data.InvoiceID}</span></p>`;
+            dynHtml += `<hr style='margin:4px 0;' />`;
 
             // CUSTOMER DETAILS
-            dynHtml += `<p style='line-height:1.2;'><span>පාරිභෝගික අංකය</span> — <span>${data.CustomerCode}</span></p>`;
-            dynHtml += `<p style='margin-bottom:6px; line-height:1.2;'><span>පාරිභෝගික නම</span> — <span style='font-weight:bold;'>${data.CustomerName}</span></p>`;
-            dynHtml += `<hr/>`;
+            dynHtml += `<p style='margin:2px 0;'>පාරිභෝගික අංකය/නම</p>`;
+            dynHtml += `<p style='text-align:center; margin:4px 0;font-size:18px;'>${data.CustomerCode}</p>`;
+			dynHtml += `<p style='text-align:left; margin:4px 0;font-size:16px;'>${data.CustomerName}</p>`;
+            dynHtml += `<hr style='margin:4px 0;' />`;
 
             // AVERAGE
-            dynHtml += `<p style=' line-height:1.2;'><span>Avg. Unit</span> — <span>${data.AvgUnit}.00</span></p>`;
-            dynHtml += `<hr/>`;
+            dynHtml += `<p style='margin:2px 0;'>Avg.Unit <span style='float:right;font-size:18px;'>${data.AvgUnit}.00</span></p>`;
+            dynHtml += `<hr style='margin:4px 0;' />`;
 
             // READINGS TABLE
-            dynHtml += `<p style=' line-height:1.2;'>නව මනු කියවීම <span style='float:right;'>${data.NowReading}</span></p>`;
-            dynHtml += `<p style=' line-height:1.2;'>පෙර මනු කියවීම <span style='float:right; text-decoration:underline;'>${data.PreReading}</span></p>`;
-            dynHtml += `<p style=' line-height:1.2;'>ජල ඒකක <span style='float:right; text-decoration:underline;'>${data.TotalUnits}</span></p>`;
+            dynHtml += `<p style=' line-height:0.5;'>නව මනු කියවීම <span style='float:right;font-size:18px;'>${data.NowReading}</span></p>`;
+            dynHtml += `<p style=' line-height:0.5;'>පෙර මනු කියවීම <span style='float:right;font-size:18px;'>${data.PreReading}</span></p>`;
+			dynHtml += `<hr style='margin:2px 0;line-height:0.5;' />`;
+            dynHtml += `<p style=' line-height:0.5;'>ජල ඒකක <span style='float:right;font-size:18px;'>${data.TotalUnits}</span></p>`;
+            dynHtml += `<hr style='margin:2px 0;' />`;
 
             // AMOUNTS TABLE
-            dynHtml += `<p style=' line-height:1.2;'>ස්ථාවර ගාස්තුව <span style='float:right;'>${data.FixedAmount}.00</span></p>`;
-            dynHtml += `<p style=' line-height:1.2;'>ඒකක ගාස්තුව <span style='float:right;'>${data.UnitAmount}.00</span></p>`;
-            dynHtml += `<p style=' line-height:1.2;'>වෙනත් - / + <span style='float:right; text-decoration:underline;'>${data.CrDR}.00</span></p>`;
-            dynHtml += `<p style=' line-height:1.2;'>බිල්පත් ගාස්තුව <span style='float:right; text-decoration:underline;'>${data.TotalAmount}.00</span></p>`;
+            dynHtml += `<p style=' line-height:0.5;'>ස්ථාවර ගාස්තුව <span style='float:right;'>${data.FixedAmount}.00</span></p>`;
+            dynHtml += `<p style=' line-height:0.5;'>ඒකක ගාස්තුව <span style='float:right;'>${data.UnitAmount}.00</span></p>`;
+            dynHtml += `<p style=' line-height:0.5;'>වෙනත් - / + <span style='float:right;'>${data.CrDR}.00</span></p>`;
+            dynHtml += `<hr style='margin:2px 0;' />`;
+			dynHtml += `<p style=' line-height:1.2;'>බිල්පත් ගාස්තුව <span style='float:right;'>${data.TotalAmount}.00</span></p>`;
 
             // BALANCE
             dynHtml += `<p style=' line-height:1.2;'>ශේෂය ඉ/ගෙ <span style='float:right;'>${data.LastMonthDue}.00</span></p>`;
-            dynHtml += `<p style=' line-height:1.2;'>ණය වාරික <span style='float:right;  text-decoration:underline;'>${data.Installment}.00</span></p>`;
+			dynHtml += `<p style=' line-height:1.2;'>ණය වාරික <span style='float:right;'>${data.Installment}.00</span></p>`;
+            dynHtml += `<hr style='margin:2px 0;' />`;
 
-            // TOTAL PAYABLE
-            dynHtml += `<p style='margin-top:4px; font-size:14px; line-height:1.2; display:flex; justify-content:space-between;'>`;
-            dynHtml += `<span>ගෙවිය යුතු මුදල</span>`;
-            dynHtml += `<span style='text-decoration:underline; border-bottom:2px solid #000; display:inline-block; min-width:80px; text-align:right;'>${data.TotalDue}.00</span>`;
-            dynHtml += `</p>`;
+			// TOTAL PAYABLE
+			dynHtml += `<p style=' line-height:1.2;'>ගෙවිය යුතු මුදල <span style='float:right;font-size:22px;'>${data.TotalDue}.00</span></p>`;
+			//dynHtml += `<p style='margin:2px 0;'>ගෙවිය යුතු මුදල <span style='float:right;font-size:18px;'>${data.TotalDue}.00</span></p>`;
+
+			dynHtml += `</p>`;
 
             dynHtml += `<div style='clear:both;'></div>`;
 
@@ -378,9 +386,9 @@ export default {
 
             // FOOTER
             dynHtml += `<h3 style='text-align:center; margin-top:4px; line-height:1.2;'>ස්තුතියි !</h3>`;
-            dynHtml += `<p style='text-align:center; line-height:1.2;'>© eTechnoLabs • 0770 647 647</p><br/><br/>`;
+            dynHtml += `<p style='text-align:center; line-height:1.2;'>© eTechnoLabs • 0770 647 647</p>`;
 
-            dynHtml += `'`;
+            dynHtml += `'`; //<br/><br/>
 
             console.log("final print:", dynHtml);
             window.location.href = dynHtml;
