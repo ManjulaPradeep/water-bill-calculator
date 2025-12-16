@@ -5,8 +5,8 @@ return [
     'customer_name'  => 'පාරිභෝගිකයාගේ නම',
     'previous_moth_dificit' => 'පසුගිය මාසයේ හිඟ',
     'periodic_charges' => 'වාරික ගාස්තු',
-    'normal_points_count' => 'සාමාන්‍ය එකක ගණන',
+    'normal_points_count' => 'සාමාන්‍ය ඒකක ගණන',
     'pre_reading' => 'පෙර කියවීම',
-    'used_units' => 'භාවිත කළ එකක ගණන',
+    'used_units' => 'භාවිත කළ ඒකක ගණන',
     'new_reading' => 'නව කියවීම',
 ];
