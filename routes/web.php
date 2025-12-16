@@ -13,12 +13,12 @@ Route::get('/', function () {
 Route::post('login', [Login::class, 'login'])->name('auth.login');
 Route::post('logout', [Login::class, 'logout'])->name('auth.logout');
 
-// Route::middleware(['apiauth'])->group(function () {
+Route::middleware(['apiauth'])->group(function () {
 
 Route::get('dashboard', [Dashboard::class, 'index'])->name('dashboard.index');
 Route::post('/api/meter/list', [MeterController::class, 'list']);
 Route::post('/api/meter/update', [MeterController::class, 'update']);
 
-// });
+});
 
 
