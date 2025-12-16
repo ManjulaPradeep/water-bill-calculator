@@ -359,19 +359,19 @@ printBill(data) {
             dynHtml += `<p style=' line-height:0.5;'>නව මනු කියවීම <span style='float:right;font-size:18px;'>${data.NowReading}</span></p>`;
             dynHtml += `<p style=' line-height:0.5;'>පෙර මනු කියවීම <span style='float:right;font-size:18px;'>${data.PreReading}</span></p>`;
 			dynHtml += `<hr style='margin:2px 0;line-height:0.5;' />`;
-            dynHtml += `<p style=' line-height:0.5;'>ජල ඒකක <span style='float:right;font-size:18px;'>${data.TotalUnits}</span></p>`;
+            dynHtml += `<p style=' line-height:0.5;'>ජල ඒකක <span style='float:right;font-size:22px;'>${data.TotalUnits}</span></p>`;
             dynHtml += `<hr style='margin:2px 0;' />`;
 
             // AMOUNTS TABLE
-            dynHtml += `<p style=' line-height:0.5;'>ස්ථාවර ගාස්තුව <span style='float:right;'>${data.FixedAmount}.00</span></p>`;
-            dynHtml += `<p style=' line-height:0.5;'>ඒකක ගාස්තුව <span style='float:right;'>${data.UnitAmount}.00</span></p>`;
-            dynHtml += `<p style=' line-height:0.5;'>වෙනත් - / + <span style='float:right;'>${data.CrDR}.00</span></p>`;
+            dynHtml += `<p style=' line-height:0.5;'>ස්ථාවර ගාස්තුව <span style='float:right;font-size:22px;'>${data.FixedAmount}.00</span></p>`;
+            dynHtml += `<p style=' line-height:0.5;'>ඒකක ගාස්තුව <span style='float:right;font-size:22px;'>${data.UnitAmount}.00</span></p>`;
+            dynHtml += `<p style=' line-height:0.5;'>වෙනත් - / + <span style='float:right;font-size:22px;'>${data.CrDR}.00</span></p>`;
             dynHtml += `<hr style='margin:2px 0;' />`;
-			dynHtml += `<p style=' line-height:1.2;'>බිල්පත් ගාස්තුව <span style='float:right;'>${data.TotalAmount}.00</span></p>`;
+			dynHtml += `<p style=' line-height:1.2;'>බිල්පත් ගාස්තුව <span style='float:right;font-size:22px;'>${data.TotalAmount}.00</span></p>`;
 
             // BALANCE
-            dynHtml += `<p style=' line-height:1.2;'>ශේෂය ඉ/ගෙ <span style='float:right;'>${data.LastMonthDue}.00</span></p>`;
-			dynHtml += `<p style=' line-height:1.2;'>ණය වාරික <span style='float:right;'>${data.Installment}.00</span></p>`;
+            dynHtml += `<p style=' line-height:1.2;'>ශේෂය ඉ/ගෙ <span style='float:right;font-size:22px;'>${data.LastMonthDue}.00</span></p>`;
+			dynHtml += `<p style=' line-height:1.2;'>ණය වාරික <span style='float:right;font-size:22px;'>${data.Installment}.00</span></p>`;
             dynHtml += `<hr style='margin:2px 0;' />`;
 
 			// TOTAL PAYABLE
