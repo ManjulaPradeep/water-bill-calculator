@@ -70,10 +70,8 @@ class MeterController extends Controller
             'role_id'     => $request->role_id,
             'route_id'    => $request->route_id,
             'pre_reading' => $request->pre_reading,
-            // 'bcode'       => $request->bcode,
-            // 'now_reading' => $request->now_reading,
-            'bcode'       => 282,
-            'now_reading' => 1251,
+            'bcode'       => $request->bcode,
+            'now_reading' => $request->now_reading,
         ];
 
         try {
