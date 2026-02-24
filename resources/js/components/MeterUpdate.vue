@@ -186,6 +186,11 @@ export default {
         },
 
         printBill(data) {
+            const formatAmount = (value) => {
+                const numericValue = Number.parseFloat(value);
+                return Number.isFinite(numericValue) ? numericValue.toFixed(2) : "0.00";
+            };
+
             let dynHtml = `print://escpos.org/escpos/bt/print?srcTp=uri&srcObj=html&src='data:text/html,`;
 
             // HEADER
@@ -222,19 +227,19 @@ export default {
             dynHtml += `<hr style='margin:2px 0;' />`;
 
             // AMOUNTS TABLE
-            dynHtml += `<p style=' line-height:0.5;'>ස්ථාවර ගාස්තුව <span style='float:right;font-size:22px;'>${data.FixedAmount}.00</span></p>`;
-            dynHtml += `<p style=' line-height:0.5;'>ඒකක ගාස්තුව <span style='float:right;font-size:22px;'>${data.UnitAmount}.00</span></p>`;
-            dynHtml += `<p style=' line-height:0.5;'>වෙනත් - / + <span style='float:right;font-size:22px;'>${data.CrDR}.00</span></p>`;
+            dynHtml += `<p style=' line-height:0.5;'>ස්ථාවර ගාස්තුව <span style='float:right;font-size:22px;'>${formatAmount(data.FixedAmount)}</span></p>`;
+            dynHtml += `<p style=' line-height:0.5;'>ඒකක ගාස්තුව <span style='float:right;font-size:22px;'>${formatAmount(data.UnitAmount)}</span></p>`;
+            dynHtml += `<p style=' line-height:0.5;'>වෙනත් - / + <span style='float:right;font-size:22px;'>${formatAmount(data.CrDR)}</span></p>`;
             dynHtml += `<hr style='margin:2px 0;' />`;
-            dynHtml += `<p style=' line-height:1.2;'>බිල්පත් ගාස්තුව <span style='float:right;font-size:22px;'>${data.TotalAmount}.00</span></p>`;
+            dynHtml += `<p style=' line-height:1.2;'>බිල්පත් ගාස්තුව <span style='float:right;font-size:22px;'>${formatAmount(data.TotalAmount)}</span></p>`;
 
             // BALANCE
-            dynHtml += `<p style=' line-height:1.2;'>ශේෂය ඉ/ගෙ <span style='float:right;font-size:22px;'>${data.LastMonthDue}.00</span></p>`;
-            dynHtml += `<p style=' line-height:1.2;'>ණය වාරික <span style='float:right;font-size:22px;'>${data.Installment}.00</span></p>`;
+            dynHtml += `<p style=' line-height:1.2;'>ශේෂය ඉ/ගෙ <span style='float:right;font-size:22px;'>${formatAmount(data.LastMonthDue)}</span></p>`;
+            dynHtml += `<p style=' line-height:1.2;'>ණය වාරික <span style='float:right;font-size:22px;'>${formatAmount(data.Installment)}</span></p>`;
             dynHtml += `<hr style='margin:2px 0;' />`;
 
             // TOTAL PAYABLE
-            dynHtml += `<p style=' line-height:1.2;'>ගෙවිය යුතු මුදල <span style='float:right;font-size:22px;'>${data.TotalDue}.00</span></p>`;
+            dynHtml += `<p style=' line-height:1.2;'>ගෙවිය යුතු මුදල <span style='float:right;font-size:22px;'>${formatAmount(data.TotalDue)}</span></p>`;
 
             dynHtml += `</p>`;
 
