@@ -135,7 +135,11 @@ export default {
     },
     methods: {
         async submitReading() {
-            if (!this.nowReading) {
+            if (
+                this.nowReading === "" ||
+                this.nowReading == null ||
+                Number.isNaN(this.nowReading)
+            ) {
                 this.error = "Please enter a new reading";
                 return;
             }
