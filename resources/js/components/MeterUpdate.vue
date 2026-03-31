@@ -209,7 +209,7 @@ export default {
             dynHtml += `<hr style='margin:4px ;' />`;
 
             // DATE / BILL NO
-            dynHtml += `<p style='margin:2px 0;'>දිනය : <span style='float:right;'>${data.ReadingDate} </span></p>`;
+            dynHtml += `<p style='text-align:center; margin:2px 0; font-size:14px;'>${data.BillCategory} | ${data.RouteID} | ${data.ReadingDate}</p>`;
             dynHtml += `<p style='margin:2px 0;'>බිල් අංකය : <span style='float:right;font-size:18px;'>${data.InvoiceID}</span></p>`;
             dynHtml += `<hr style='margin:4px 0;' />`;
 
@@ -250,6 +250,10 @@ export default {
             dynHtml += `<div style='clear:both;'></div>`;
 
             dynHtml += `<hr/>`;
+
+            dynHtml += `<p style='text-align:center; margin:2px 0; font-size:20px;'>${data.BankAccount}</p>`;
+            dynHtml += `<p style='text-align:center; margin:2px 0; font-size:15px;'>${data.BankName}</p>`;
+            dynHtml += `<hr style='margin:4px 0;' />`;
 
             // FOOTER
             dynHtml += `<h3 style='text-align:center; margin-top:4px; line-height:1.2;'>ස්තුතියි !</h3>`;
