@@ -231,7 +231,7 @@ export default {
             dynHtml += `<hr style='margin:2px 0;' />`;
 
             // AMOUNTS TABLE
-            dynHtml += `<p style=' line-height:0.5;'>ස්ථාවර ගාස්තුව <span style='float:right;font-size:22px;'>${formatAmount(data.FixedAmount)}</span></p>`;
+            dynHtml += `<p style=' line-height:0.5;'>සේවා ගාස්තුව <span style='float:right;font-size:22px;'>${formatAmount(data.FixedAmount)}</span></p>`;
             dynHtml += `<p style=' line-height:0.5;'>ඒකක ගාස්තුව <span style='float:right;font-size:22px;'>${formatAmount(data.UnitAmount)}</span></p>`;
             dynHtml += `<p style=' line-height:0.5;'>වෙනත් - / + <span style='float:right;font-size:22px;'>${formatAmount(data.CrDR)}</span></p>`;
             dynHtml += `<hr style='margin:2px 0;' />`;
