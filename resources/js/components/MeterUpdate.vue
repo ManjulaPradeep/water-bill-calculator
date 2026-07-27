@@ -195,7 +195,7 @@ export default {
                         this.gpsBlocked = true;
                         switch (error.code) {
                             case error.PERMISSION_DENIED:
-                                this.gpsErrorMessage = "GPS permission was denied. Please enable GPS/location access in your browser settings to generate bills.";
+                                this.gpsErrorMessage = "GPS permission was denied. Please enable GPS/location access in your browser / device settings to generate bills.";
                                 break;
                             case error.POSITION_UNAVAILABLE:
                                 this.gpsErrorMessage = "GPS signal is unavailable. Please move to an open area and try again.";
