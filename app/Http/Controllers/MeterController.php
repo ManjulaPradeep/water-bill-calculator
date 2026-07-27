@@ -57,9 +57,9 @@ class MeterController extends Controller
             'bcode'        => 'required',
             'pre_reading'  => 'required|numeric',
             'now_reading'  => 'required|numeric',
-            'gps_lat'      => 'nullable|numeric',
-            'gps_lng'      => 'nullable|numeric',
-            'gps_accuracy' => 'nullable|numeric',
+            'gps_lat'      => 'required|numeric',
+            'gps_lng'      => 'required|numeric',
+            'gps_accuracy' => 'required|numeric',
         ]);
 
         $user = Session::get('user');
@@ -80,7 +80,6 @@ class MeterController extends Controller
             'longitude'    => $request->gps_lng,
         ];
 
-        dd($body);
         try {
             $response = Http::withBasicAuth(config('api.auth_user'), config('api.auth_pass'))
                 ->withHeaders(['Content-Type' => 'application/json'])
