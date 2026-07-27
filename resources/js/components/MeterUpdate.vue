@@ -85,10 +85,42 @@
             </div>
         </div>
 
+        <!-- GPS Blocked Overlay -->
+        <div
+            v-if="gpsBlocked"
+            class="bg-red-50 border border-red-200 rounded-lg p-4 text-center"
+        >
+            <svg
+                class="mx-auto h-8 w-8 text-red-500 mb-2"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+            >
+                <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5c-.77.833.192 2.5 1.732 2.5z"
+                />
+            </svg>
+            <p class="text-red-700 font-medium text-sm">{{ gpsErrorMessage }}</p>
+        </div>
+
+        <!-- GPS Checking State -->
+        <div
+            v-if="!gpsBlocked && !gpsReady"
+            class="bg-yellow-50 border border-yellow-200 rounded-lg p-4 text-center"
+        >
+            <p class="text-yellow-700 font-medium text-sm">
+                Checking GPS availability...
+            </p>
+        </div>
+
         <button
             class="w-full bg-gradient-to-r from-teal-300 via-cyan-300 to-sky-300 text-white py-2 rounded-lg hover:bg-green-700 disabled:bg-gray-300"
             @click="submitReading"
-            :disabled="loading || !meter || calculatedUsedUnits < 0"
+            :disabled="loading || !meter || calculatedUsedUnits < 0 || gpsBlocked || !gpsReady"
         >
             <span v-if="loading">Generating Bill...</span>
             <span v-else>Generate Bill</span>
@@ -120,6 +152,12 @@ export default {
             loading: false,
             error: null,
             success: null,
+            gpsLat: null,
+            gpsLng: null,
+            gpsAccuracy: null,
+            gpsReady: false,
+            gpsBlocked: false,
+            gpsErrorMessage: "",
         };
     },
     computed: {
@@ -133,7 +171,79 @@ export default {
             return this.nowReading - this.meter.PreReading;
         },
     },
+    mounted() {
+        this.checkGpsAvailability();
+    },
     methods: {
+        checkGpsAvailability() {
+            return new Promise((resolve) => {
+                if (!navigator.geolocation) {
+                    this.gpsBlocked = true;
+                    this.gpsErrorMessage = "GPS is not supported on this device. GPS access is required to generate bills.";
+                    resolve(false);
+                    return;
+                }
+
+                // Test GPS access by requesting a quick position with short timeout
+                navigator.geolocation.getCurrentPosition(
+                    () => {
+                        this.gpsReady = true;
+                        this.gpsBlocked = false;
+                        resolve(true);
+                    },
+                    (error) => {
+                        this.gpsBlocked = true;
+                        switch (error.code) {
+                            case error.PERMISSION_DENIED:
+                                this.gpsErrorMessage = "GPS permission was denied. Please enable GPS/location access in your browser settings to generate bills.";
+                                break;
+                            case error.POSITION_UNAVAILABLE:
+                                this.gpsErrorMessage = "GPS signal is unavailable. Please move to an open area and try again.";
+                                break;
+                            case error.TIMEOUT:
+                                this.gpsErrorMessage = "GPS request timed out. Please ensure GPS is enabled on your device.";
+                                break;
+                            default:
+                                this.gpsErrorMessage = "GPS location could not be obtained. GPS access is required to generate bills.";
+                        }
+                        resolve(false);
+                    },
+                    {
+                        enableHighAccuracy: true,
+                        timeout: 8000,
+                        maximumAge: 0,
+                    }
+                );
+            });
+        },
+
+        getGpsLocation() {
+            return new Promise((resolve, reject) => {
+                if (!navigator.geolocation) {
+                    reject(new Error("GPS not supported"));
+                    return;
+                }
+
+                navigator.geolocation.getCurrentPosition(
+                    (position) => {
+                        this.gpsLat = position.coords.latitude;
+                        this.gpsLng = position.coords.longitude;
+                        this.gpsAccuracy = position.coords.accuracy;
+                        resolve();
+                    },
+                    (error) => {
+                        console.warn("GPS location error:", error.message);
+                        reject(error);
+                    },
+                    {
+                        enableHighAccuracy: true,
+                        timeout: 10000,
+                        maximumAge: 0,
+                    }
+                );
+            });
+        },
+
         async submitReading() {
             if (
                 this.nowReading === "" ||
@@ -149,9 +259,29 @@ export default {
                 return;
             }
 
+            if (!this.gpsReady || this.gpsBlocked) {
+                this.error = "GPS location is required to generate a bill. Please ensure GPS access is enabled.";
+                return;
+            }
+
             this.loading = true;
             this.error = null;
             this.success = null;
+
+            // Capture GPS location before submitting
+            try {
+                await this.getGpsLocation();
+            } catch (e) {
+                this.error = "Could not obtain GPS location. Please ensure GPS is enabled and try again.";
+                this.loading = false;
+                return;
+            }
+
+            if (this.gpsLat === null || this.gpsLng === null) {
+                this.error = "GPS location is required to generate a bill. Please try again.";
+                this.loading = false;
+                return;
+            }
 
             try {
                 const body = {
@@ -161,6 +291,9 @@ export default {
                     pre_reading: this.meter.PreReading,
                     now_reading: this.nowReading,
                     used_units: this.calculatedUsedUnits,
+                    gps_lat: this.gpsLat,
+                    gps_lng: this.gpsLng,
+                    gps_accuracy: this.gpsAccuracy,
                 };
 
                 const response = await axios.post("/api/meter/update", body);
