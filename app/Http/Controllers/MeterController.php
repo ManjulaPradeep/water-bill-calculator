@@ -57,6 +57,9 @@ class MeterController extends Controller
             'bcode'        => 'required',
             'pre_reading'  => 'required|numeric',
             'now_reading'  => 'required|numeric',
+            'gps_lat'      => 'nullable|numeric',
+            'gps_lng'      => 'nullable|numeric',
+            'gps_accuracy' => 'nullable|numeric',
         ]);
 
         $user = Session::get('user');
@@ -65,15 +68,19 @@ class MeterController extends Controller
         }
 
         $body = [
-            'user_id'     => $user['user_name'],
-            'session_id'  => Session::getId(),
-            'role_id'     => $request->role_id,
-            'route_id'    => $request->route_id,
-            'pre_reading' => $request->pre_reading,
-            'bcode'       => $request->bcode,
-            'now_reading' => $request->now_reading,
+            'user_id'      => $user['user_name'],
+            'session_id'   => Session::getId(),
+            'role_id'      => $request->role_id,
+            'route_id'     => $request->route_id,
+            'pre_reading'  => $request->pre_reading,
+            'bcode'        => $request->bcode,
+            'now_reading'  => $request->now_reading,
+            'accuracy'     => $request->gps_accuracy,
+            'latitute'     => $request->gps_lat,
+            'longitude'    => $request->gps_lng,
         ];
 
+        dd($body);
         try {
             $response = Http::withBasicAuth(config('api.auth_user'), config('api.auth_pass'))
                 ->withHeaders(['Content-Type' => 'application/json'])
