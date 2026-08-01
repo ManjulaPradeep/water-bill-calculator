@@ -286,7 +286,6 @@ export default {
                 );
 
                 if (response.data.Status === 200) {
-                    console.log("Bill generated successfully:", response.data);
                     this.printBill(response.data);
 
                     this.success = "Bill generated successfully";
